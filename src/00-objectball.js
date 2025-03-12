@@ -142,9 +142,9 @@ function gameObject() {
     
     function teamColors(teamName) {
         let obj = gameObject()
-        if (obj.home.teamName) {
+        if (teamName===obj.home.teamName) {
             return obj.home.colors;
-          } else if (obj.away.teamName) {
+          } else if (teamName===obj.away.teamName) {
             return obj.away.colors
           } else {
             return "Team not found"; 
@@ -181,6 +181,7 @@ function gameObject() {
         
     function playerStats (playerName){
         let obj = gameObject()
+        let player;
         if (obj.home.players[playerName]) {
             player = obj.home.players[playerName];
           } else if (obj.away.players[playerName]) {
@@ -235,7 +236,7 @@ function gameObject() {
      let playerStats = team.players[player];
      if (playerStats.points > mostPoints) {
          mostPoints = playerStats.points;
-         topScorer = player
+         topScorer = player;
     
      }
      }
@@ -291,7 +292,7 @@ function gameObject() {
       let obj = gameObject()
       let longestName = playerWithLongestName()
       let maxSteals = 0
-      let playerWithMostSteals = ""
+  
 
       for (let teamKey of ["home","away"]){
         let team = obj[teamKey]
@@ -308,7 +309,9 @@ function gameObject() {
       }
     }
 
-      return playerWithMostSteals === longestName
+    let longestPlayerStats = obj.home.players[longestName] || obj.away.players[longestName];
+
+    return longestPlayerStats.steals === maxSteals; 
     }
           
   
